@@ -1,6 +1,13 @@
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 
+"""
+hash_password(). - делает из пароля хэш
+verify_password() - (пароль , хэшируемый пароль)
+ - вызывает verify_password() и сверяет
+ 
+
+"""
 
 ph = PasswordHasher()
 

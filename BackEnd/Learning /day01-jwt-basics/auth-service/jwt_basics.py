@@ -2,6 +2,7 @@ from datetime import timedelta
 from password_utils import hash_password, verify_password
 from jwt_utils import create_token,verify_token
 
+
 def simulate_registration(username:str,password:str)->dict:
     """
     Симуляция регистрации пользователя
@@ -57,4 +58,5 @@ if __name__ == "__main__":
     token = simulate_login("nikita", "123", user["hashed_password"])
     if token:
          print (simulate_protected_request(token))
+    
     

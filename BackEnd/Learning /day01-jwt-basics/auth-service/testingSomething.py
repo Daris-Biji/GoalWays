@@ -74,7 +74,7 @@ testing  = lambda x:x**2
 print ( testing(5))
 
 users = [
-    {'name': 'Маша', 'age': 25},
+    {'name': 'Иван', 'age': 25},
     {'name': 'Вася', 'age': 18},
     {'name': 'Петя', 'age': 40}
 ]
@@ -82,3 +82,4 @@ users = [
 # Напишите лямбду, которая "достает" возраст
 sorted_users = sorted(users, key=lambda x: x["age"]<20 )
 print (sorted_users)
+

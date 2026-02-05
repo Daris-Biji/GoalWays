@@ -10,7 +10,7 @@ class Base(DeclarativeBase):
     pass
 
 def get_db():
-    db = Sessionlocal() # обьект класса sessionmaker
+    db = Sessionlocal() # обьект класса Sessionlocal
     try:
         yield db
     finally:
@@ -18,4 +18,6 @@ def get_db():
 
 """
 говорю что открой соединие с базой и держи его открытым, пока тебя еще раз не пнут
+(фаст апи делает это сам)
+
 """
