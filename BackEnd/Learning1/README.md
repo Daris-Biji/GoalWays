@@ -1,26 +1,10 @@
-# Day 01 — JWT Basics
+# Backend Learning
 
-Учебный проект: аутентификация с использованием JWT токенов.
+Учебные проекты по Spring Boot.
 
-## Структура проекта
+## Структура
 
-| Папка | Описание |
-|-------|----------|
-| `auth-service/` | Бэкенд на Python — регистрация, логин, проверка токенов |
-| `frontend/` | Фронтенд на React + TypeScript |
-
-## Как запустить
-
-### Бэкенд
-```bash
-cd auth-service
-pip install -r requirements.txt
-python jwt_basics.py
-```
-
-### Фронтенд
-```bash
-cd frontend
-npm install
-npm run dev
-```
+| Папка | Тема |
+|-------|------|
+| `day01-jwt-basics/` | JWT аутентификация на Spring Boot + Spring Security |
+| `day02-async-scheduled/` | @Async и @Scheduled — асинхронность и планировщик задач |
