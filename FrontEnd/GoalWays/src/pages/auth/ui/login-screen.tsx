@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../types/navigation'; 
+import { RootStackParamList } from '../../../types/navigation';
+import { loginRequest } from '../../../features/auth/auth-slice';
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+  selectAuthIsLoading, 
+  selectAuthError, 
+  selectAuthUser 
+} from '../../../features/auth/auth.selectors';
 import styles from '../styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-export const LoginScreen = ({ navigation }: any) => {
+export const LoginScreen = ({ navigation }: Props) => {
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+    
+    const isLoading = useSelector(selectAuthIsLoading);
+    const error = useSelector(selectAuthError);
+    const user = useSelector(selectAuthUser);
+
+    useEffect(() => {
+        if (error) {
+            Alert.alert('Ошибка', error);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (user) {
+            navigation.navigate('Main');
+        }
+    }, [user, navigation]);
 
     const handleLogin = () => {
         if (!email || !password) {
             Alert.alert('Ошибка', 'Заполните все поля');
             return;
         }
-
-        Alert.alert('Успех', `Привет, ${email}! (логика позже)`);
-        navigation.navigate('Main');
+        
+        dispatch(loginRequest({ email, password }));
     };
 
     return (
@@ -41,7 +65,11 @@ export const LoginScreen = ({ navigation }: any) => {
                 secureTextEntry
             />
             
-            <Button title="Войти" onPress={handleLogin} />
+            <Button 
+                title={isLoading ? "Вход..." : "Войти"} 
+                onPress={handleLogin}
+                disabled={isLoading}
+            />
             
             <Text 
                 style={styles.link}
@@ -58,4 +86,3 @@ export const LoginScreen = ({ navigation }: any) => {
         </View>
     );
 };
-
