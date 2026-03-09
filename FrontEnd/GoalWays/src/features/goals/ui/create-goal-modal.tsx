@@ -22,6 +22,7 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [deadline, setDeadline] = useState('');
+    const [priority, setPriority] = useState<'high' | 'medium' | 'low'>('medium');
 
     const handleCreate = () => {
         if (!title.trim()) {
@@ -35,13 +36,15 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
             category: category.trim() || 'Без категории',
             deadline: deadline || null,
             progress: 0,
-            status: 'active',
+            priority: priority,
+            status: 'in_progress',
         });
 
         setTitle('');
         setDescription('');
         setCategory('');
         setDeadline('');
+        setPriority('medium');
         onClose();
     };
 
@@ -59,6 +62,7 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
                     <Text style={styles.modalTitle}>Новая цель</Text>
 
                     <ScrollView showsVerticalScrollIndicator={false}>
+                        {/* Название */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Название *</Text>
                             <TextInput
@@ -70,6 +74,7 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
                             />
                         </View>
 
+                        {/* Описание */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Описание</Text>
                             <TextInput
@@ -83,6 +88,7 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
                             />
                         </View>
 
+                        {/* Категория */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Категория</Text>
                             <TextInput
@@ -113,6 +119,52 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
                             </View>
                         </View>
 
+                        {/* Приоритет */}
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Приоритет</Text>
+                            <View style={styles.priorityContainer}>
+                                <TouchableOpacity
+                                    style={[
+                                        styles.priorityButton,
+                                        priority === 'high' && styles.priorityButtonActive
+                                    ]}
+                                    onPress={() => setPriority('high')}
+                                >
+                                    <Text style={[
+                                        styles.priorityButtonText,
+                                        priority === 'high' && styles.priorityButtonTextActive
+                                    ]}>🔥 Высокий</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={[
+                                        styles.priorityButton,
+                                        priority === 'medium' && styles.priorityButtonActive
+                                    ]}
+                                    onPress={() => setPriority('medium')}
+                                >
+                                    <Text style={[
+                                        styles.priorityButtonText,
+                                        priority === 'medium' && styles.priorityButtonTextActive
+                                    ]}>⚪ Средний</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={[
+                                        styles.priorityButton,
+                                        priority === 'low' && styles.priorityButtonActive
+                                    ]}
+                                    onPress={() => setPriority('low')}
+                                >
+                                    <Text style={[
+                                        styles.priorityButtonText,
+                                        priority === 'low' && styles.priorityButtonTextActive
+                                    ]}>💤 Низкий</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        {/* Дедлайн */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Дедлайн (опционально)</Text>
                             <TextInput
@@ -125,6 +177,7 @@ export const CreateGoalModal = ({ visible, onClose, onCreateGoal }: CreateGoalMo
                         </View>
                     </ScrollView>
 
+                    {/* Кнопки */}
                     <View style={styles.buttonsContainer}>
                         <TouchableOpacity
                             style={[styles.button, styles.cancelButton]}
@@ -214,6 +267,29 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     categoryChipTextSelected: {
+        color: '#fff',
+    },
+    priorityContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    priorityButton: {
+        flex: 1,
+        paddingVertical: 12,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 8,
+        marginHorizontal: 4,
+        alignItems: 'center',
+    },
+    priorityButtonActive: {
+        backgroundColor: '#007AFF',
+    },
+    priorityButtonText: {
+        fontSize: 14,
+        color: '#333',
+    },
+    priorityButtonTextActive: {
         color: '#fff',
     },
     buttonsContainer: {
